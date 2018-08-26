@@ -1,9 +1,10 @@
 QWidget {
-	font-size:13px;
+	font-size:15px;
 }
 
 .label {
 	font-weight: bold;
+	margin: 0.2em 0 0.2em 0; 
 }
 .cred { 
 	color:#fff;

@@ -41,7 +41,7 @@ class qt_app(Template,Design,Tools,Views,Signals,Processing,Error,Check):
 		self.bdd_curs = Usql(self.bdd_con.cursor(),self.bdd_con)
 		self.bdd_curs.activate_for_keys()
 		self.application = application
-		self.subapp = self.u.UQapp(title="Remote msgs")
+		self.subapp = self.u.UQapp(title="Maria mode")
 		self.subapp.style = "css"
 		self.menu_grid = self.template_create_menu_grid(self.subapp)
 		self.view_menu()

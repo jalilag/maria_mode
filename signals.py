@@ -34,3 +34,26 @@ class Signals:
 			grid.get_widget_by_pos(3,1).setText(data[2])
 			grid.get_widget_by_pos(3,3).setText(data[3])
 			grid.get_widget_by_pos(5,0).setPlainText(data[4])
+
+	def sig_load_measures(self):
+		w = self.content_grid.get_widget_by_pos(1,0)
+		if w is None: return
+		self.view_box_client_measures(w.currentData())
+
+	def sig_save_measures(self):
+		w = self.content_grid.get_widget_by_pos(1,0)
+		if w is None: return
+		user_id = w.currentData()
+		mids = self.bdd_curs.request("SELECT mid FROM measures_desc")
+		data = []
+		for i in mids:
+			w = self.content_grid.get_widget_by_name(i)
+			if w is not None:
+				data.append(w.text())
+		for i in range(len(mids)):
+			if data[i]:
+				self.bdd_curs.request("""
+					INSERT OR REPLACE INTO measures (user_id,mid,value) 
+					VALUES (""" + str(user_id) + """,'""" + mids[i] + """',""" + str(data[i]) + """)
+				""")
+		self.view_box_client_measures(user_id)
